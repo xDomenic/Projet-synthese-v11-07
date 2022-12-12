@@ -8,8 +8,14 @@ const URL_GET_CAT = `https://api.themoviedb.org/3/discover/movie?api_key=11c5603
 const URL_GET_MOVIE_ID = (idMovie) =>
   `https://api.themoviedb.org/3/movie/${idMovie}?api_key=11c5603767c58ad4b5e0b33c3d09fc60&language=fr-CAN`;
 
+const URL_GET_TRAILER_MOVIE_ID = (idMovie) =>
+  `https://api.themoviedb.org/3/movie/${idMovie}/videos?api_key=11c5603767c58ad4b5e0b33c3d09fc60&language=en-US`;
+
 const URL_GET_CAST_ID = (idMovie) =>
   `https://api.themoviedb.org/3/movie/${idMovie}/credits?api_key=11c5603767c58ad4b5e0b33c3d09fc60&language=fr-CAN`;
+
+const URL_GET_MOVIE_BY_PERSON = (idActor) =>
+  `https://api.themoviedb.org/3/person/${idActor}/movie_credits?api_key=11c5603767c58ad4b5e0b33c3d09fc60`;
 
 const getPopMovies = async () => {
   const result = await axios.get(`${URL_GET_POP}${API_KEY}`);
@@ -25,11 +31,20 @@ export const getMoviesByCat = async (with_genres) => {
 
 export const getMovieById = async (idMovie) => {
   const result = await axios.get(`${URL_GET_MOVIE_ID(idMovie)}`);
+  const resultTrailers = await axios.get(
+    `${URL_GET_TRAILER_MOVIE_ID(idMovie)}`
+  );
   const resultCast = await axios.get(`${URL_GET_CAST_ID(idMovie)}`);
   result.data.cast = resultCast?.data?.cast;
+  result.data.trailers = resultTrailers?.data?.results;
 
   console.log("resultMovieId:", result?.data);
   return result?.data || [];
+};
+
+export const getMoviesByPerson = async (idActor) => {
+  const result = await axios.get(`${URL_GET_MOVIE_BY_PERSON(idActor)}`);
+  return result?.data?.cast || [];
 };
 
 export default getPopMovies;

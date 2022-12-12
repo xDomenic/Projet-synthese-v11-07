@@ -1,14 +1,15 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Recherche from "./pages/Recherche";
-import Accueil from "./pages/Accueil";
-import Film from "./pages/Film";
-import { useEffect } from "react";
 import $ from "jquery";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import ActorDetails from "./components/films/ActorDetail";
+import Accueil from "./pages/Accueil";
 import Acteurs from "./pages/Acteurs";
 import Categories from "./pages/Categories";
-import Populaires from "./pages/Populaires";
 import Contact from "./pages/Contact";
+import Film from "./pages/Film";
 import NotFound from "./pages/NotFound";
+import Populaires from "./pages/Populaires";
+import Recherche from "./pages/Recherche";
 
 function App() {
   useEffect(() => {
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route path="/Film/:idMovie">
             <Film />
+          </Route>
+          <Route path="/actorDetails/:idActor">
+            <ActorDetails />
           </Route>
           <Route exact={true} path="/Acteurs">
             <Acteurs />

@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { getMovieById } from "../accueil/FilmsService";
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
+import React from "react";
+import { useHistory } from "react-router-dom";
+import Actor from "./Actor";
 // import { useParams } from "react-router-dom";
-import Actor from "../Actor";
 
-const Photos = () => {
+const Photos = ({ Actors }) => {
+
+  const history = useHistory()
+
+
+
   return (
     <section
       className="movie-details-area"
       style={{ backgroundImage: 'url("../img/bg/movie_details_bg.jpg")' }}
     >
-      <div class="py-5 team3 ">
-        <div class="container"></div>
+      <div className="py-5 team3 ">
+        <div className="container"></div>
       </div>
       <div className="container">
         <div className="row">
@@ -25,24 +32,24 @@ const Photos = () => {
                   <a href="/blog-details">
                     <img src="img/blog/blog_thumb01.jpg" alt="" />
                   </a>
-                  <div class="row justify-content-center mb-4"></div>
-                  <div class="row">
-                    <div class="col-lg-3 mb-4">
-                      <div class="row">
-                        <div class="col-md-12">
+                  <div className="row justify-content-center mb-4"></div>
+                  <div className="row">
+                    <div className="col-lg-3 mb-4">
+                      <div className="row">
+                        <div className="col-md-12">
                           <p className="textActor">
                             Acteurs ayant joué dans ce film
                           </p>
                           <ul className="actors_desc">
-                            {credits.slice(0, 4).map((credit) => {
+                            {Actors.slice(0, 4).map((actor) => {
+                              console.log({ actor });
                               return (
                                 <Actor
-                                  actor={credit}
-                                  key={credit.id}
-                                  onClickActor={() =>
-                                    history.push("/actorDetails", {
-                                      id: credit.id,
-                                    })
+                                  actor={actor}
+                                  key={actor.id}
+                                  onClickActor={() => {
+                                    history.push(`/actorDetails/${actor?.id}`)
+                                  }
                                   }
                                 />
                               );

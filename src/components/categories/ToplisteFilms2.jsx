@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
 import "magnific-popup";
+import React, { useEffect, useState } from "react";
 // import $ from "jquery";
-import { getMoviesByCat } from "../accueil/FilmsService";
 import Genres from "../../data/genre.json";
+import { getMoviesByCat } from "../accueil/FilmsService";
 
 const imgPath = "https://image.tmdb.org/t/p/original";
 const ToplisteFilms2 = ({ selected }) => {
@@ -29,7 +28,7 @@ const ToplisteFilms2 = ({ selected }) => {
           ratings: e.vote_average,
         };
       });
-      console.log("mov by cat", MoviesByCatFormated);
+      console.log("mov by cat", getMoviesCatList);
       setItems(MoviesByCatFormated);
     };
 
@@ -60,15 +59,9 @@ const ToplisteFilms2 = ({ selected }) => {
                     <img src={m.image} alt="image du film" />
                     <ul className="overlay-btn">
                       <li>
-                        <a
-                          href="https://www.youtube.com/watch?v=R2gbPxeNk2E"
-                          className="popup-video btn"
-                        >
-                          Voir Maintenant
-                        </a>
                       </li>
                       <li>
-                        <a href="/movie-details" className="btn">
+                        <a href={`/film/${m?.id}`} className="btn">
                           Details
                         </a>
                       </li>

@@ -1,27 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { getMovieById } from "../accueil/FilmsService";
-import Actor from "../Actor";
+import React from "react";
 // import $ from "jquery";
 // import "magnific-popup";
 
 const imgPath = "https://image.tmdb.org/t/p/original";
 
-const FilmsDetails = () => {
-  const [MovieData, setMovieData] = useState();
-  //   useEffect(() => {
-  //     $(".popup-video").magnificPopup({
-  //       type: "iframe",
-  //     });
-  //   }, []);
+const FilmsDetails = ({ MovieData }) => {
+  console.log("tessst", MovieData);
 
-  const { idMovie } = useParams();
-  console.log("idMovie=", idMovie);
-  useEffect(() => {
-    getMovieById(idMovie).then((m) => {
-      setMovieData(m);
-    });
-  }, []);
 
   return (
     <section
@@ -77,12 +62,15 @@ const FilmsDetails = () => {
                     <span>Chaînes de diffusion en continu</span>
                   </li>
                   <li className="watch">
-                    <a
-                      href="https://www.themoviedb.org/video/play?key=0jIGkBm7IGw"
-                      className="btn popup-video"
+                    <iframe allowFullScreen src={`https://www.themoviedb.org/video/play?key=${MovieData?.trailers[0]?.key}`} width="400px" height="175px"></iframe>
+
+                    {/* <a
+                      target=""
+                      href={`https://www.themoviedb.org/video/play?key=${MovieData?.trailers[0]?.key}`}
+                      className="btn popup-video" rel="noreferrer"
                     >
                       <i className="fas fa-play" /> Voir Maintenant
-                    </a>
+                    </a> */}
                   </li>
                 </ul>
               </div>
